@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electricity Bill Calculator</title>
+    <style>
+body { font-family: Arial; padding: 20px; }
+.container { max-width: 400px; margin: auto; padding: 20px; }
+input, button { width: 100%; padding: 10px; margin: 10px 0; }
+button { background: #28a745; color: white; }
+.result { margin-top: 20px; padding: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Electricity Calculator</h1>
+        <input type="number" placeholder="Enter Your Units" id="unit" min="0">
+        <button onclick="calculate()">Calculate</button>
+        <div class="result" id="result"></div>
+    </div>
+    <script>
+        function calculate() {
+            let unit = document.getElementById("unit").value;
+            let subTotal, vat, total;
+
+            if (unit <= 50) {
+                subTotal = unit * 0.5;
+            } else if (unit <= 150) {
+                subTotal = 50 * 0.5 + (unit - 50) * 0.75;
+            } else if (unit <= 250) {
+                subTotal = 50 * 0.5 + 100 * 0.75 + (unit - 150) * 1.20;
+            } else {
+                subTotal = 50 * 0.5 + 100 * 0.75 + 100 * 1.20 + (unit - 250) * 1.50;
+            }
+
+            vat = subTotal * 0.2;
+            total = subTotal + vat;
+
+            document.getElementById("result").innerHTML = `
+                <strong>Subtotal:</strong> ${subTotal.toFixed(2)}<br>
+                <strong>VAT:</strong> ${vat.toFixed(2)}<br>
+                <strong>Total:</strong> ${total.toFixed(2)}
+            `;
+        }
+    </script>
+</body>
+</html>
